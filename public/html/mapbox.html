@@ -1,0 +1,20 @@
+<md-content ng-controller="analyticsTabController" ng-init="selectedTab=0" >
+        <div style="background-color: #4A5060; font-family: ProximanovaSemiBold;font-size: 20px; padding: 20px; color: #FFFFFF;"><span style="position: absolute;top: 35px; z-index: 1;">Analytics</span></div>
+        <md-tabs md-dynamic-height md-border-bottom md-selected="selectedTab">
+            <md-tab style="text-transform: capitalize;" label="Trip Explorer">
+                <md-content class="md-padding">
+                    <div ui-sref="mapbox"></div>
+                </md-content>
+            </md-tab>
+            <md-tab label="Trends & Patterns">
+                <md-content class="md-padding">
+                    <div  ng-include="'html/trendsandPatterns.html'" ng-click="selectedTab=1"></div>
+                </md-content>
+            </md-tab>
+            <md-tab label="Geofence Zones">
+                <md-content class="md-padding">
+                    <div  ng-include="'html/geofence.html'"></div>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-content>

@@ -1,0 +1,318 @@
+<md-content>
+    <md-toolbar style="background-color: #4a5060">
+        <div class="md-toolbar-tools">
+         <p style="font-size: 28px; color: #ffffff; margin-top: 10px; margin-left: 10px;"> Dashboard</p>
+        </div>
+    </md-toolbar>
+</md-content>
+  <div style="font-family: ProximanovaSemiBold;" ng-controller="dashboardController">
+      <div class="row">
+<div style="margin-bottom: 40px;" class="col-md-12">
+            <leaflet style="float: left; position: relative;" lf-center="sanFrancisco" markers="markers" tiles="tiles"  icons="icons"  defaults="defaults" width="100%" height="480px"></leaflet>
+            <md-input-container style="width: 400px;float: left; position: absolute; right:13px;height: 480px; top:-2px;">
+                <md-toolbar style="background-color: #526C87 ;">
+                <div class="md-toolbar-tools">
+                    <span style="color: #FFFFFF; font-size: 20px;">Live activity feed</span>
+                </div>
+            </md-toolbar>
+
+            <md-content style="background-color: #526C87 ;">
+                <md-list>
+                    <div class="scrollbar" id="style-1">
+                        <div class="force-overflow">
+                    <md-list-item class="md-3-line" ng-repeat="feed in liveActivityFeeds">
+                                          <div class="md-list-item-text">
+                            <ul class="lis" style="list-style: none; padding: 0px; font-size: 12px; color: #ffffff ; line-height: 20px;">
+                               <!--<li><md-button style="font-size: 8px;border-radius: 16%; background-color: green;">pickup</md-button>-->
+
+                                <li><img src="../images/{{feed.src}} " style="width: 70px; float: left;
+                                  margin-right: 10px;"/>
+                                    <div style="font-size: 12px">{{feed.rider}},{{feed.status}} at {{feed.address}}</div></li>
+                            </ul>
+                        </div>
+                    </md-list-item>
+                            </div>
+                        </div>
+                </md-list>
+            </md-content>
+                </md-input-container>
+
+      </div>
+      <div class="col-sm-6">
+          <div class="panel panel-default">
+              <div class="md-title" style="color: #ABABAB; margin-top: 25px; margin-left: 4px; ">&nbsp;&nbsp;Bikes in fleet</div>
+              <div class="panel-body">
+          <md-table-container>
+              <table md-table>
+                  <thead md-head >
+                  <tr md-row>
+                      <th md-column><span></span></th>
+                      <th  style="text-align: right;" md-column>As at today</th>
+
+                  </tr>
+                  </thead>
+                  <tbody style="font-size: 11px;" md-body>
+                  <tr md-row>
+                      <td md-cell>Total bikes in fleet</td>
+                      <td style="text-align: right;" md-cell><span class="count" style="color:#000000;text-align: right;" format="comma" count-to="3000" duration="1"></span></td>
+                  </tr><tr md-row>
+                      <td md-cell>&nbsp;&nbsp;Currently being rented</td>
+                      <td style="text-align: right;" md-cell><span class="count" style="color:#000000;" format="comma" count-to="1209" duration="1"></span></td>
+                  </tr><tr md-row>
+                      <td md-cell>&nbsp;&nbsp;Currently Idle</td>
+                      <td style="text-align: right;" style="text-align: right;" md-cell><span class="count" style="color:#000000;" format="comma" count-to="1600" duration="1"></span></td>
+                  </tr><tr md-row>
+                      <td md-cell>&nbsp;&nbsp;Currently being / awaiting repairs</td>
+                      <td style="text-align: right;" style="text-align: right;" md-cell><span class="count" style="color:#000000);" format="comma" count-to="53" duration="1"></span></td>
+                  </tr><tr md-row>
+                      <td md-cell>&nbsp;&nbsp;Currently out of bounds</td>
+                      <td style="text-align: right;" md-cell><span class="count" style="color:#000000;" format="comma" count-to="82" duration="1"></span></td>
+                  </tr><tr md-row>
+                      <td md-cell>&nbsp;&nbsp;Reported lost / stolen</td>
+                      <td style="text-align: right;" md-cell><span class="count" style="color:#000000;" format="comma" count-to="83" duration="1"></span></td>
+                  </tr><tr md-row>
+                      <td md-cell>Currently fleet usage</td>
+                      <td style="text-align: right;" md-cell><span class="count" style="color:#000000;" format="comma" count-to="48" duration="1"></span>%</td>
+                  </tr>
+                  </tbody>
+              </table>
+          </md-table-container>
+         </div></div></div>
+          <div class="col-sm-6">
+              <div class="panel panel-default">
+                  <div class="md-title" style="color: #ABABAB; margin-top: 25px; margin-left: 4px;">&nbsp;&nbsp;Trip analysis</div>
+                  <div class="panel-body">
+                      <md-table-container>
+                          <table md-table>
+                              <thead md-head >
+                              <tr md-row>
+                                  <th md-column><span></span></th>
+                                      <th style="text-align: right;" md-column>As at Today</th>
+                                  <th style="text-align: right;" md-column>Last 30 Days</th>
+                                  <th style="text-align: right;" md-column>Previous 30 days</th>
+                              </tr>
+                              </thead>
+                              <tbody style="color: #979797;" md-body>
+                              <tr md-row>
+                                  <td  style="padding: 0 12px;" md-cell>Total trips</td>
+                                  <td style="text-align: right;" md-cell><span class="count"  format="comma" count-to="1895" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count"  format="comma" count-to="387" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count"  format="comma" count-to="387" duration="1"></span></td>
+                              </tr><tr md-row>
+                                  <td style="padding: 0 12px;" md-cell>&nbsp;&nbsp;Of these,members</td>
+                                  <td style="text-align: right;" md-cell><span class="count"  format="comma" count-to="1000" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count"  format="comma" count-to="348" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count" style="color:rgb(125,128,128);" format="comma" count-to="348" duration="1"></span></td>
+                              </tr><tr md-row>
+                                  <td style="padding: 0 12px;" md-cell>&nbsp;&nbsp;Of these,casual riders</td>
+                                  <td style="text-align: right;" md-cell><span class="count" format="comma" count-to="895" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count"  format="comma" count-to="210" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count"  format="comma" count-to="210" duration="1"></span></td>
+                              </tr><tr md-row>
+                                  <td style="padding: 0 12px;" md-cell>Total distance (miles)</td>
+                                  <td style="text-align: right;" md-cell><span class="count"  format="comma" count-to="4396" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count"  format="comma" count-to="849" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count"  format="comma" count-to="849" duration="1"></span></td>
+                              </tr><tr md-row>
+                                  <td style="padding: 0 12px;" md-cell>Average distance per trip</td>
+                                  <td style="text-align: right;" md-cell><span class="count" format="comma" count-to="3.75" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count" format="comma" count-to="4.1" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count" format="comma" count-to="4.1" duration="1"></span></td>
+                              </tr><tr md-row>
+                                  <td style="padding: 0 12px;" md-cell>Total duration (hrs:min)</td>
+                                  <td style="text-align: right;" md-cell><span class="count" format="comma" count-to="784" duration="1"></span>:<span class="count" style="color:#000000"; count-to="26" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count" format="comma" count-to="182" duration="1"></span>:<span class="count" style="color:#000000;" format="comma" count-to="32" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count" format="comma" count-to="182" duration="1"></span>:<span class="count" style="color:#000000;" format="comma" count-to="32" duration="1"></span></td>
+                              </tr><tr md-row>
+                                  <td style="padding: 0 12px;" md-cell>Average duratio per trip</td>
+                                  <td style="text-align: right;" md-cell><span class="count" format="comma" count-to="00" duration="1"></span>:<span class="count" style="color:#000000;" format="comma" count-to="48" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count"  format="comma" count-to="01" duration="1"></span>:<span class="count" style="color:#000000;" format="comma" count-to="13" duration="1"></span></td>
+                                  <td style="text-align: right;" md-cell><span class="count" format="comma" count-to="01" duration="1"></span>:<span class="count" style="color:#000000;" format="comma" count-to="13" duration="1"></span></td>
+                              </tr>
+                              </tr>
+                              </tbody>
+                          </table>
+                      </md-table-container>
+                  </div></div></div>
+        <div class="row">
+      <div class=" col-md-3">
+          <div class="panel panel-default">
+              <div class="md-title" style="color: #979797;">&nbsp;&nbsp;&nbsp;Bikes in fleet</div>
+              <div class="panel-body">
+                  <div class="row"><div class="col-sm-5">
+                      <p class="fleetCountName">THIS MONTH</p>
+                      <h1 class="count fleetCount" style="color:#404040;" format="comma" count-to="1033" duration="1"></h1>
+                  </div>
+                      <div class="col-sm-2"></div>
+                      <div class="col-sm-5">
+                          <p class="fleetCountName2">LAST MONTH</p>
+                          <h1 class="count" style="color:rgb(125,128,128);" format="comma" count-to="996" duration="1"></h1>
+                      </div> </div><br>
+                  <div id="myBar"
+           scroll-trigger="firstScroll()" ></div><br>
+          <div id="myBar1" style="margin-top: -5%;"
+               scroll-trigger="secondScroll()">
+          </div></div></div></div>
+            <div class=" col-md-3">
+                <div class="panel panel-default">
+                    <div class="md-title" style="color: #979797">&nbsp;&nbsp;&nbsp;Fleet usage</div>
+                    <div class="panel-body">
+                        <div class="row"><div class="col-sm-6">
+                            <p class="fleetCountName">THIS MONTH</p>
+                            <h1 class="count" style="color:#404040 ;   position: absolute;margin-left: 16%; margin-right: 50%;" format="comma" count-to="82" duration="1"></h1><span  ng-show="showPercent" style="margin-left: 48%;font-size: 24px;color: rgb(125,128,128);position:absolute">%</span>
+                        </div>
+                            <div class="col-sm-6">
+                                <p class="fleetCountName2">LAST MONTH</p>
+                                <h1 class="count" style="color:rgb(125,128,128);" format="comma" count-to="78" duration="1"></h1><span  ng-show="showPercent" style="margin-left: 55%;font-size: 23px;color: rgb(125,128,128);position:absolute;margin-top: -24%;">%</span>
+                            </div> </div><br>
+                        <div id="myBar2" scroll-trigger="firstScroll()" ></div><br>
+                        <div id="myBar3" style="margin-top: -5%;"
+                             scroll-trigger="secondScroll()">
+                        </div></div></div>
+            </div>
+            <div class=" col-md-3">
+                <div class="panel panel-default">
+                    <div class="md-title" style="color:#979797;">&nbsp;&nbsp;&nbsp;Maintenance calls</div>
+                    <div class="panel-body">
+                        <div class="row"><div class="col-sm-5">
+                            <p class="fleetCountName">THIS MONTH</p>
+                            <h1 class="count" style="color:#404040;" format="comma" count-to="12" duration="1"></h1>
+                        </div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-5">
+                                <p class="fleetCountName2">LAST MONTH</p>
+                                <h1 class="count" style="color:rgb(125,128,128);" format="comma" count-to="19" duration="1"></h1>
+                            </div> </div><br>
+                        <div id="myBar4" scroll-trigger="firstScroll()" ></div><br>
+                        <div id="myBar5" style="margin-top: -5%;"
+                             scroll-trigger="secondScroll()">
+                        </div></div></div>
+            </div>
+            <div class=" col-md-3">
+                <div class="panel panel-default">
+                    <div class="md-title" style="color: #979797">&nbsp;&nbsp;&nbsp;Theft report</div>
+                    <div class="panel-body">
+                        <div class="row"><div class="col-sm-5">
+                            <p class="fleetCountName">THIS MONTH</p>
+                            <h1 class="count" style="color:#404040;" format="comma" count-to="4" duration="1"></h1>
+                        </div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-5">
+                                <p class="fleetCountName2">LAST MONTH</p>
+                                <h1 class="count" style="color:rgb(125,128,128);" format="comma" count-to="11" duration="1"></h1>
+                            </div> </div><br>
+                        <div id="myBar6" scroll-trigger="firstScroll()" ></div><br>
+                        <div id="myBar7" style="margin-top: -5%;"
+                             scroll-trigger="secondScroll()">
+                        </div></div></div>
+            </div>
+        </div>
+
+      <div class=" col-md-6">
+      <div class="panel panel-default">
+          <div class="md-title" style="color: gray">&nbsp;&nbsp;&nbsp;Fleet Workload</div><br>
+          <div style="position: absolute;">
+          <p style="font-size: 14px;color: gray; margin: 0 7px 10px; text-align: left;">&nbsp;&nbsp;&nbsp;How is the fleet works being used over the course of a 24 hour period</p>
+          <div style="position: relative; margin-left: 467px; margin-top: -35px;" class="form-group input-group dateInput">
+              <label class="input-group-btn" for="date-fld1">
+                  <span style="padding: 3px;" class="btn btn-default">
+                      <span style="font-size: 14px;" class="glyphicon glyphicon-calendar"></span>
+                  </span>
+              </label>
+              <input style="width: 68px; height: 28px; font-size: 9px; padding: 6px;" type="text" class="form-control date-input" id="date-fld1" value="{{today}}" />
+          </div>
+          </div>
+          <div style="margin-top: 31px;" class="panel-body">
+          <canvas class="chart chart-line" chart-data="fleetWorkloadPlottingDatas" chart-series="fleetWorkloadSeries_Labels" chart-labels="fleetWorkloadXaxis_Labels"
+		  chart-colours="fleetWorkload_Colours"></canvas>
+		  <ol class="chart-legend">
+        <li><span style="background-color: rgb(144,238,144)"></span>Parked/Idle</li>
+        <li><span style="background-color: rgb(211,211,211)"></span>Unrentable</li>
+        <li><span style="background-color: rgb(30,144,255)"></span>Being Rented</li>
+		 </ol>
+		 </div>
+		 </div></div>
+
+        <div class="col-md-6">
+		<div class="panel panel-default">
+            <div class="md-title" style="color: gray;">&nbsp;&nbsp;&nbsp;Fleet Workload vs unmet Demand</div><br>
+            <p style="font-size: 14px;color: gray; margin: 0 7px 10px; text-align: left;">&nbsp;&nbsp;&nbsp;The % of the fleet in use over 24 hours vs any requests that did not translate to a booking</p>
+        <div class="panel-body">
+          <canvas class="chart chart-bar" chart-data="fleetVsUnmet_PlottingDatas" chart-series="fleetVsUnmet_Series_Labels" chart-labels="fleetVsUnmet_Xaxis_Labels"
+		  chart-colours="fleetVsUnmet_Colours" chart-options = "fleetVsUnmet_VerticalLines"></canvas>
+		  <ol class="chart-legend">
+        <li><span style="background-color: rgb(30,144,255)"></span>Rented Bikes</li>
+		<li><span style="background-color: rgb(211,211,211)"></span>Unmet demand</li>
+		</ol>
+		</div>
+		 </div></div></div>
+      <br>
+    <div class="row">
+      <div class="col-md-4">
+		<div class="panel panel-default">
+            <div class="md-title" style="color: gray">&nbsp;&nbsp;&nbsp;Fleet Status</div>
+            <p style="font-size: 14px;color: gray; text-align: left; margin-left: 6px;">&nbsp;&nbsp;&nbsp;A breakdown of the current fleet usage.</p>
+
+        <div class="panel-body">
+          <canvas class="chart chart-doughnut" chart-data="fleetStatus_PlottingDatas" chart-labels="fleetStatus[0].labels" chart-colours="fleetStatus_Colours"></canvas>
+		  <ol class="chart-legend">
+        <li><span style="background-color: rgb(144,238,144)"></span>being rented</li>
+		<li><span style="background-color: rgb(211,211,211)"></span>parked/idle</li>
+		<li><span style="background-color: rgb(173,216,230)"></span>Maintenance</li>
+		<li><span style="background-color: rgb(30,144,255)"></span>Lost/Stolen</li>
+		 </ol>
+		 </div>
+		 </div></div>
+
+      <div class="col-md-4">
+		 <div class="panel panel-default">
+             <div class="md-title" style="color: gray;">&nbsp;&nbsp;&nbsp;Members vs casual riders</div>
+             <p style="font-size: 14px;color: gray;text-align: left; margin-left: 16px;">Of the total trips,what is the split between members and casual riders.</p>
+        <div class="panel-body">
+          <canvas class="chart chart-doughnut" chart-data="membersVsRiders_PlottingDatas" chart-labels="membersVsRiders_Xaxis_Labels" chart-colours="membersVsRiders_Colours"></canvas>
+		  <ol class="chart-legend">
+        <li><span style="background-color: rgb(144,238,144)"></span>members</li>
+		<li><span style="background-color: rgb(30,144,255)"></span>casual riders</li>
+      </ol>
+        </div>
+		 </div></div>
+
+      <div style="margin-top: 3%;" class="col-md-4">
+		 <div style="border: none;" class="panel panel-default">
+        <div class="md-title" style="color: gray; margin-left: 4px;">&nbsp;&nbsp;Cumulative trip statistics</div>
+        <div class="panel-body">
+		 <div id="rect" class="row">
+	<div class="col-sm-6">
+<div id='rect1'  data-panel_type="none">
+    <div style="padding-top: 13%;">
+    <h1 class="count" style="color:rgb(125,128,128);" format="comma" count-to="{{avgDistInMiles}}" duration="1.5"></h1>
+        <p>Average Miles</p>
+        </div>
+</div>
+</div>
+             <div class="col-sm-6">
+             <div id='rect2'  data-panel_type="none">
+                 <div style="padding-top: 13%;">
+        <h1 class="count" style="color:rgb(125,128,128);" format="comma" count-to="{{totalDurationInHours}}" duration="1.5"></h1>
+        <p>Total Duration</p></div>
+</div></div>
+
+             <div class="col-sm-6">
+             <div id="rect3" data-panel_type="none">
+                 <div style="padding-top: 13%;">
+        <h1 class="count" style="color:rgb(125,128,128);" format="comma" count-to="{{totalDistanceInMiles}}" duration="1.5"></h1>
+        <p>Total Miles</p></div>
+</div></div>
+             <div class="col-sm-6">
+             <div id="rect4" data-panel_type="none">
+                 <div style="padding-top: 13%;">
+        <h1 class="count" style="color:rgb(125,128,128);" format="comma" count-to="{{totalRides}}" duration="1.5"></h1>
+        <p>Total Rides</p></div>
+        <br>
+</div></div>
+</div>
+
+    </div>
+  </div></div>
+      </div>
+  </div>

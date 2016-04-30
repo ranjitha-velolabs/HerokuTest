@@ -1,0 +1,462 @@
+<!--Created by Gopinath on 22-04-2016.-->
+
+<div class="row tripdetails-container">
+    <div class="col-sm-12">
+        <div class="bg-hash">
+            <div class="tripsfound pull-left padd-lr10 ">
+                <p class="trip nomarg">325 trips found</p>
+                <span class=""> Showing trips in the  </span>
+
+                <div class="dropdown daylist">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        last week </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Last day</a></li>
+                        <li><a href="#">Last week</a></li>
+                        <li><a href="#">Last month</a></li>
+                        <li><a href="#">Custom date range</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tripsfound pull-right padd-r13">
+                <ul class="list-inline nomarg">
+                    <li>
+                        <div class="data">25</div>
+                        <span class="sub-data">TRIPS</span>
+                    </li>
+                    <li>
+                        <div class="data">225</div>
+                        <span class="sub-data">MILES</span>
+                    </li>
+                    <li>
+                        <div class="data">02:12</div>
+                        <span class="sub-data">AVERAGE DURATION</span>
+                    </li>
+                    <li>
+                        <div class="data">3.24</div>
+                        <span class="sub-data">AVERAGE LENGTH</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="show-mapheader">
+            <div class="nopadd pull-left">
+                <span class="map-toolbar-maintxt">Show on map:</span>
+                <span class="checkboxstyle1">
+                    <input id="check1" class="checkbox-custom" name="check1" type="checkbox" checked>
+                    <label for="check1" class="checkbox-custom-label">GEOFENCES</label>
+                </span>
+                <span class="checkboxstyle1">
+                    <input id="check2" class="checkbox-custom" name="check2" type="checkbox" checked>
+                    <label for="check2" class="checkbox-custom-label">HUBS</label>
+                </span>
+            </div>
+            <div class="pull-right nopadd text-left">
+                 <span class="checkboxstyle1"  style="padding-right: 37px;">
+                    <input ng-click = "showTrips()" id="showAllTripsCheckbox" class="checkbox-custom" name="check3" type="checkbox">
+                    <label for="showAllTripsCheckbox" class="checkbox-custom-label showtrip-checkbox">SHOW ALL TRIPS ON MAP</label>
+                 </span>
+                 <span class="pull-right padd-tb5">
+                    <span class="sort_by">Sort by
+                        <span class="due">duration</span>
+                    </span>
+                    <button class="sort-btn btn" type="button" ng-init="mon=false"  ng-click="sortByDescending()">
+                            <i class="fa fa-angle-down fa-lg"></i>
+                    </button>
+                    <button class="btn sort-btn sort-btnactive" type="button" ng-init="mon=false"
+                            ng-click="sortByAscending()">
+                            <i class="fa fa-angle-up fa-lg"></i>
+                    </button>
+                 </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="pull-right nopadd wid-triphistory">
+            <div class="trip-histroy" id="style-5">
+                <h3 class="tripHead">Trip history</h3>
+                <div class="force-overflow scrollbar">
+                    <ul style="background-color:transparent !important;" class="list-group">
+                        <li id="lists" style="" ng-repeat="item in geoJson.features" class="list-group-item history-list"
+                            ng-click="clickTrip($index)" ng-mouseleave="hovOut($index)">
+                            <img id="avatar" style="width: 45px;float: left;border-radius: 50%;"
+                                 ng-src="../images/masknormal.png" class="Mask" alt="{{item.properties.rider}}">
+
+                            <ul id="lisText"
+                                style=" list-style: none; font-size: 13px;letter-spacing: 0.05em;float: left;display: inline-block;margin-left: 8px;padding-left: 0px;"
+                                class="lis">
+                                <li class="family-bold">{{item.properties.rider}}</li>
+                                <li>{{item.properties.age}}</li>
+                                <li>{{item.properties.gender}}</li>
+                            </ul>
+                            <ul id="lisText"
+                                style="letter-spacing: 0.05em;list-style: none; font-size: 13px;padding-right: 20px;padding-left: 0px;text-align: right;">
+                                <li>{{item.properties.startplace}}&nbsp;,&nbsp;&nbsp;{{item.properties.startTime}}
+                                    <img ng-src="../images/sidenormal.png" style="position: absolute;right: 10px;height: 85px;"></li>
+                                <li class="family-bold" style="line-height: 2.5;">{{item.properties.distance}}&nbsp;,&nbsp;&nbsp;{{item.properties.duration}}</li>
+                                <li>{{item.properties.endplace}}&nbsp;,&nbsp;&nbsp;{{item.properties.endTime}}</li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class=" nopadd" style="margin-right: 450px;position: relative;">
+            <div id="map" style="width :100%; height: 750px; float:left;position: relative;"></div>
+                <div id="accor" style="position:absolute; width:270px; top:30px;z-index:10;left: 15px;"
+                     class="container">
+                    <div class="panel panel-default filter-panel ">
+                        <a ng-click="toggleAccordian()" data-toggle="collapse" href="">
+                            <div class="panel-heading">
+                                <h4 class="panel-title text-black">
+                                    TRIP FILTERS
+                                <span class="pull-right">
+                                    <i class="fa fa-angle-down fa-2x"> </i>
+                                </span>
+                                </h4>
+                            </div>
+                        </a>
+
+                        <div id="collapsea" class="panel-collapse collapse {{showAll}}" ng-init="showAll = ' '">
+                            <div class="panel-body" style="padding-top:5px;">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default filterInnerSection filter-panel bor-top1">
+                                        <a ng-click="toggleDateTimeFilter()" data-toggle="collapse" data-parent="#accordion" href="">
+                                            <div class="panel-heading padd-tb12">
+                                                <h4 class="panel-title text-black">
+                                                    Date and time
+                                                <span class="pull-right">
+                                                    <i class="fa fa-angle-down fa-2x"> </i>
+                                                </span>
+                                                </h4>
+                                            </div>
+                                        </a>
+
+                                        <div id="collapse1" class="panel-collapse collapse {{showDateTimeFilter}}" ng-init="showDateTimeFilter = ' '">
+                                            <div class="panel-body" style="padding: 8px 0px;">
+                                                <p class="heaD">Time of day</p>
+
+                                                <div class="fillter-timedate">
+                                                    <button id="tesT" ng-click="dayClick()" ng-init="dayFilter=false"
+                                                            type="button" class="btn btn-default">Day
+                                                    </button>
+                                                    <button id="tesT1" ng-click="nightClick()"
+                                                            ng-init="nightFilter=false"
+                                                            type="button" class="btn btn-default">Night
+                                                    </button>
+                                                    <br/>
+                                                    <button id="tesT2" ng-click="amClick()" ng-init="peakAMFilter=false"
+                                                            type="button" class="btn btn-default">Peak am
+                                                    </button>
+                                                    <button id="tesT3" ng-click="pmClick()" ng-init="peakPMFilter=false"
+                                                            type="button" class="btn btn-default">Peak pm
+                                                    </button>
+                                                </div>
+                                                <p class="heaD">Time</p>
+
+                                                <div style="margin-bottom:10px;" range-slider min="0" max="100"
+                                                     model-min="bike.min" model-max="bike.max" disabled="false"></div>
+                                                <div class="marg-btm20">
+                                                    <div style="display:inline-flex">
+                                                        <input type="text" class="form-control filter-sliderval"
+                                                               value="{{bike.min}}">
+
+                                                        <p style="margin-top:auto; margin-bottom:auto;">to</p>
+                                                        <input type="text"
+                                                               class="form-control filter-sliderval marg-l20"
+                                                               value="{{bike.max}}">
+                                                    </div>
+                                                </div>
+                                                <p class="heaD">Day</p>
+
+                                                <div class="marg-btm20 filter-day-btnitem">
+                                                    <button id="monday" ng-click="monClick()" type="button"
+                                                            ng-init="mon=false" class="btn btn-default">M
+                                                    </button>
+                                                    <button id="tue" ng-click="tueClick()" type="button"
+                                                            ng-init="Tue=false"
+                                                            class="btn btn-default">T
+                                                    </button>
+                                                    <button id="wed" ng-click="wedClick()" type="button"
+                                                            ng-init="Wed=false"
+                                                            class="btn btn-default">W
+                                                    </button>
+                                                    <button id="thu" ng-click="thurClick()" type="button"
+                                                            ng-init="Thu=false" class="btn btn-default">T
+                                                    </button>
+                                                    <button id="fri" ng-click="friClick()" type="button"
+                                                            ng-init="Fri=false"
+                                                            class="btn btn-default">F
+                                                    </button>
+                                                    <button id="sat" ng-click="satClick()" type="button"
+                                                            ng-init="Sat=false"
+                                                            class="btn btn-default">S
+                                                    </button>
+                                                    <button id="sun" ng-click="sunClick()" type="button"
+                                                            ng-init="Sun=false"
+                                                            class="btn btn-default">S
+                                                    </button>
+                                                </div>
+                                                <p class="heaD">Month</p>
+
+                                                <div class="marg-btm20 filter-day-btnitem filter-month">
+                                                    <button id="jan" ng-click="janClick()" ng-init="Jan=false"
+                                                            type="button"
+                                                            class="btn btn-default">J
+                                                    </button>
+                                                    <button id="feb" ng-click="febClick()" ng-init="Feb=false"
+                                                            type="button"
+                                                            class="btn btn-default">F
+                                                    </button>
+                                                    <button id="mar" ng-click="marClick()" ng-init="Mar=false"
+                                                            type="button"
+                                                            class="btn btn-default">M
+                                                    </button>
+                                                    <button id="apr" ng-click="aprClick()" ng-init="Apr=false"
+                                                            type="button"
+                                                            class="btn btn-default">A
+                                                    </button>
+                                                    <button id="may" ng-click="mayClick()" ng-init="May=false"
+                                                            type="button"
+                                                            class="btn btn-default">M
+                                                    </button>
+                                                    <button id="jun" ng-click="junClick()" ng-init="Jun=false"
+                                                            type="button"
+                                                            class="btn btn-default">J
+                                                    </button>
+                                                    <br/><br/>
+                                                    <button id="jul" ng-click="julClick()" ng-init="Jul=false"
+                                                            type="button"
+                                                            class="btn btn-default">J
+                                                    </button>
+                                                    <button id="aug" ng-click="augClick()" ng-init="Aug=false"
+                                                            type="button"
+                                                            class="btn btn-default">A
+                                                    </button>
+                                                    <button id="sep" ng-click="sepClick()" ng-init="Sep=false"
+                                                            type="button"
+                                                            class="btn btn-default">S
+                                                    </button>
+                                                    <button id="oct" ng-click="octClick()" ng-init="Oct=false"
+                                                            type="button"
+                                                            class="btn btn-default">O
+                                                    </button>
+                                                    <button id="nov" ng-click="novClick()" ng-init="Nov=false"
+                                                            type="button"
+                                                            class="btn btn-default">N
+                                                    </button>
+                                                    <button id="dec" ng-click="decClick()" ng-init="Dec=false"
+                                                            type="button"
+                                                            class="btn btn-default">D
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default bor-top1">
+                                        <a ng-click="toggleRiderInfoFilter()" data-toggle="collapse" data-parent="#accordion" href="">
+                                            <div class="panel-heading padd-tb12">
+                                                <h4 class="panel-title text-black">
+                                                    Rider info
+                                                 <span class="pull-right">
+                                                    <i class="fa fa-angle-down fa-2x"> </i>
+                                                </span>
+                                                </h4>
+                                            </div>
+                                        </a>
+
+                                        <div id="collapse2" class="panel-collapse collapse {{riderInfoFilter}}" ng-init="riderInfoFilter = ' '">
+                                            <div class="panel-body nopadd">
+                                                <p class="heaD">Gender</p>
+
+                                                <div class="marg-btm20 filter-day-btnitem filter-month">
+                                                    <button id="ma" ng-click="maClick()" ng-init="Ma=false"
+                                                            type="button"
+                                                            class="btn btn-default">M
+                                                    </button>
+                                                    <button id="fe" ng-click="feClick()" ng-init="Fe=false"
+                                                            type="button"
+                                                            class="btn btn-default">F
+                                                    </button>
+                                                </div>
+                                                <p class="heaD">Rider age</p>
+
+                                                <div class="marg-btm5" range-slider min="0" max="100"
+                                                     model-min="bike.min"
+                                                     model-max="bike.max" disabled="false"></div>
+                                                <div class="marg-btm20">
+                                                    <div style="display:inline-flex">
+                                                        <button id="tesTs" ng-click="butClick()" type="button"
+                                                                class="btn btn-default filter-lbl-btn">all ages
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <p class="heaD">Rider type</p>
+
+                                                <div class="marg-btm20">
+                                                    <button id="mem" ng-click="memClick()" ng-init="Mem=false"
+                                                            type="button"
+                                                            class="btn btn-default filter-lbl-btn">Member
+                                                    </button>
+                                                    <button id="cas" ng-click="casClick()" ng-init="Cas=false"
+                                                            type="button"
+                                                            class="btn btn-default filter-lbl-btn">Casual rider
+                                                    </button>
+                                                </div>
+                                                <p class="heaD">Customer name</p>
+
+                                                <div class="dropdown marg-btm5">
+                                                    <div class="input-group filter-dropdownbtn">
+                                                        <button class="btn btn-default dropdown-toggle" type="button"
+                                                                data-toggle="dropdown">
+                                                            Select customer
+                                                         <span class="pull-right">
+                                                            <i class="fa fa-angle-down fa-2x"> </i>
+                                                        </span>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a id="lisa" href="">Jonathan Smith</a></li>
+                                                            <li><a id="lisa" href="">Will Smith</a></li>
+                                                            <li><a id="lisa" href="">Di Carpio</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default bor-top1" style="border-bottom: 1px solid #ddd">
+                                        <a ng-click="toggleTripInfoFilter()" data-toggle="collapse" data-parent="#accordion" href="">
+                                            <div class="panel-heading padd-tb12">
+                                                <h4 class="panel-title text-black">
+                                                    Trip info
+                                                 <span class="pull-right">
+                                                    <i class="fa fa-angle-down fa-2x"> </i>
+                                                </span>
+                                                </h4>
+                                            </div>
+                                        </a>
+
+                                        <div id="collapse3" class="panel-collapse collapse {{tripInfoFilter}}" ng-init="tripInfoFilter = ' '">
+                                            <div class="panel-body"
+                                                 style="padding-top:0px; padding-left:0px; padding-right:0px;">
+                                                <p class="heaD">Trip duration</p>
+
+                                                <div class="marg-btm5" range-slider min="1" max="24"
+                                                     model-min="bike1.min"
+                                                     model-max="bike1.max" disabled="false"></div>
+                                                <div class="marg-btm20">
+                                                    <div style="display:inline-flex">
+                                                        <button id="dur" ng-click="durClick()" ng-init="Dur=false"
+                                                                type="button" class="btn btn-default filter-lbl-btn">All
+                                                            durations
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <p class="heaD">Trip length</p>
+
+                                                <div class="marg-btm5" range-slider min="1" max="10"
+                                                     model-min="bike2.min"
+                                                     model-max="bike2.max" disabled="false"></div>
+                                                <div class="marg-btm20">
+                                                    <div style="display:inline-flex">
+                                                        <button id="miles" ng-init="Miles=false" ng-click="milesClick()"
+                                                                type="button" class="btn btn-default filter-lbl-btn">Up
+                                                            to 5
+                                                            miles
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <p class="heaD">Pick up location</p>
+
+                                                <div class="dropdown marg-btm5">
+                                                    <div class="input-group filter-dropdownbtn">
+                                                        <button class="btn btn-default dropdown-toggle" type="button"
+                                                                data-toggle="dropdown">
+                                                            Select customer
+                                                        <span class="pull-right">
+                                                            <i class="fa fa-angle-down fa-2x"> </i>
+                                                        </span>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a id="lisa" href="">Jonathan Smith</a></li>
+                                                            <li><a id="lisa" href="">Will Smith</a></li>
+                                                            <li><a id="lisa" href="">Di Carpio</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <p class="heaD">Drop off location</p>
+
+                                                <div class="dropdown marg-btm5">
+                                                    <div class="input-group filter-dropdownbtn">
+                                                        <button class="btn btn-default dropdown-toggle" type="button"
+                                                                data-toggle="dropdown">
+                                                            Select customer
+                                                         <span class="pull-right">
+                                                            <i class="fa fa-angle-down fa-2x"> </i>
+                                                        </span>
+                                                        </button>
+                                                        <ul style="background-color:#EEEEEE;width:208px; font-size:12px;"
+                                                            class="dropdown-menu">
+                                                            <li><a id="lisa" href="">Jonathan Smith</a></li>
+                                                            <li><a id="lisa" href="">Will Smith</a></li>
+                                                            <li><a id="lisa" href="">Di Carpio</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <p class="heaD">Show a specific bike</p>
+
+                                                <div class="dropdown marg-btm5">
+                                                    <div class="input-group filter-dropdownbtn">
+                                                        <button class="btn btn-default dropdown-toggle" type="button"
+                                                                data-toggle="dropdown">
+                                                            Select customer
+                                                         <span class="pull-right">
+                                                            <i class="fa fa-angle-down fa-2x"> </i>
+                                                        </span>
+                                                        </button>
+                                                        <ul style="background-color:#EEEEEE; font-size:12px; width:208px;"
+                                                            class="dropdown-menu">
+                                                            <li><a id="lisa" href="">Jonathan Smith</a></li>
+                                                            <li><a id="lisa" href="">Will Smith</a></li>
+                                                            <li><a id="lisa" href="">Di Carpio</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button id="tesTs" ng-click="butClick()" type="button" class="btn filter-btn">Cancel
+                                    </button>
+                                    <button id="tesTs" ng-click="butClick()" type="button" class="btn filter-btn">Update
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="map_toolSection">
+                    <span class="checkboxstyle1 autozoom_grid">
+                        <input id="autoZoom" class="checkbox-custom" name="zoom" type="checkbox" value="zoom" checked
+                               ng-model="autoZ" ng-checked="true">
+                        <label for="autoZoom" class="checkbox-custom-label grid-checkbox">AUTO ZOOM</label>
+                    </span>
+
+                    <span class="checkboxstyle1 autozoom_grid">
+                        <input id="showGrid" class="checkbox-custom" name="check" type="checkbox" value="grid" checked>
+                        <label for="showGrid" class="checkbox-custom-label grid-checkbox">SHOW GRID</label>
+                    </span>
+                </div>
+
+        </div>
+    </div>
+</div>

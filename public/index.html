@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Skyfleet</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta name="robots" content="noindex, nofollow" />
+
+    <script src="../js/libs/Chart.js"></script>
+    <!--Angular-->
+    <script src="../js/angular/angular.min.js"></script>
+    <script src="../js/angular/angular-animate.min.js"></script>
+    <script src="../js/angular/angular-aria.min.js"></script>
+    <script src="../js/angular/angular-messages.min.js"></script>
+    <script src="../js/angular/angular-material.min.js"></script>
+    <script src="../js/angular/angular-material-icons.min.js"></script>
+    <script src="../js/angular/angular.rangeSlider.js"></script>
+    <script src="../js/angular/angular-ui-router.js"></script>
+    <script src="../js/angular/angular-cookies.min.js"></script>
+    <script src="../js/angular/angular-translate.js"></script>
+    <script src="../js/angular/angular-leaflet-directive.min.js"></script>
+    <script src="../js/angular/ng-table.js"></script>
+    <script src="../js/angular/ngStorage.min.js"></script>
+    <script src="../js/angular/ui-bootstrap-tpls.min.js"></script>
+    <script src="../js/angular/ui-jq.js"></script>
+    <script src="../js/angular/ui-load.js"></script>
+    <script src="../js/angular/ui-validate.js"></script>
+    <script src="../js/angular/angular-count-to.min.js"></script>
+    <script src="../js/angular/angular-sanitize.js"></script>
+    <script src="../js/angular/angular-route.js"></script>
+    <script src="../js/angular/angular-cookies.js"></script>
+    <script src="../js/angular/angular-chart.js"></script>
+    <!-- Routes-->
+    <script src="../js/app.js"></script>
+    <!--Libraries-->
+    <script src="../js/libs/jquery.min.js"></script>
+    <script src="../js/libs/bootstrap.min.js"></script>
+    <script src="../js/libs/jquery-ui.js"></script>
+    <script src="../js/libs/mapbox.js"></script>
+    <script src="../js/libs/leaflet-pip.js"></script>
+    <script src="../js/libs/md-data-table.js"></script>
+    <script src="../js/libs/ang-accordion.js"></script>
+    <script src="../js/libs/bootstrap-timepicker.js"></script>
+    <script src="../js/libs/underscore.js"></script>
+    <script src="../js/libs/bootstrap-datepicker.js"></script>
+    <!--Controllers-->
+    <script src="../js/controllers/dashboard-controller.js"></script>
+    <script src="../js/controllers/app-opening-areas-controller.js"></script>
+    <script src="../js/controllers/trends-and-patterns-controller.js"></script>
+    <script src="../js/controllers/rental-supply-controller.js"></script>
+    <script src="../js/controllers/analytics-tab-controller.js"></script>
+    <script src="../js/controllers/login-controller.js"></script>
+    <script src="../js/controllers/register-controller.js"></script>
+    <script src="../js/controllers/trip-explorer-controller.js"></script>
+   <!-- Factories-->
+    <script src="../js/factories/map-factory.js"></script>
+    <script src="../js/factories/analytic-point-factory.js"></script>
+    <script src="../js/factories/auth-factory.js"></script>
+    <script src="../js/factories/session-factory.js"></script>
+    <script src="../js/factories/tripExplorerService.js"></script>
+    <script src="../js/factories/map-factory.js"></script>
+   <!--Stylesheets-->
+    <link href="../stylesheets/md-data-table.css" rel="stylesheet" type="text/css"/>
+    <link href="../stylesheets/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../stylesheets/datepicker.css" rel="stylesheet" type="text/css">
+    <link href='../stylesheets/mapbox.css' rel='stylesheet' type="text/css"/>
+    <link href="../stylesheets/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="../stylesheets/angular-material.min.css" rel="stylesheet" type="text/css">
+    <link href="../stylesheets/ang-accordion.css" rel="stylesheet" type="text/css">
+    <link href="../stylesheets/angular.rangeSlider.css" rel="stylesheet" type="text/css">
+    <link href="../stylesheets/angular-chart.css" rel="stylesheet" type="text/css">
+    <link href="../stylesheets/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../stylesheets/timepicker.css" rel="stylesheet" type="text/css">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/custom.css" />
+</head>
+<body ng-app="skyfleet">
+  <!--New Header-->
+      <div class="wrapper container-fluid" ng-controller="loginController" ng-init="session()">
+          <!--<header>-->
+          <div class="row">
+              <div class="col-sm-12">
+                  <nav class="navbar navbar-default menu-header">
+                      <div class="pull-left fullwid">
+                          <div class="navbar-header">
+                              <button type="button" class="navbar-toggle collapsed menu" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                  <span class="sr-only">Toggle navigation</span>
+                                  <span class="icon-bar sr-only"></span>
+                                  <span class="icon-bar sr-only"></span>
+                                  <span class="icon-bar sr-only"></span>
+                                  <i class="fa fa-bars fa-lg showmenu"></i>
+                                  <i class="fa fa-times fa-lg closemenu"></i>
+                              </button>
+                              <a class="navbar-brand" href=http://www.skylock.cc/ target=_blank>
+                                  <img class="logo" src=../images/velo.png>
+                                  <span id=name-container>SKYLOCK FLEET</span>
+                              </a>
+                          </div>
+                          <div style="display: -webkit-inline-box; width: 280px; margin-left: 700px;" ng-show ="!tabs">
+                            <p style="font-size: 18px; padding-right: 20PX; margin-top: 16px;"> {{accountDescription}}</p>
+                            <button style="margin-top: 10px;" class="btn btn-default" ng-click="stateChange()"> {{button}}</button>
+                          </div>
+                          <div id="navbar"  class="collapse navbar-collapse menu-list">
+                              <ul ng-show ="tabs" class="nav navbar-nav padd-l10">
+                                  <li ng-repeat="item in menu_Items" class="item" >
+                                      <a ng-class="{'active': item.id == states.activeItem}" ng-click="states.activeItem=item.id" ui-sref="{{item.href}}">{{item.title}}</a></li>
+                                  <!--<li class="active"><a ui-sref=dashboard>DASHBOARD</a></li>-->
+                                  <!--<li><a ui-sref="analytics">ANALYTICS</a></li>-->
+                                  <!--<li><a href="#contact">REPORTS</a></li>-->
+                                  <!--<li><a href="#contact">MAINTANENCE</a></li>-->
+                                  <!--<li><a href="#contact">SALES</a></li>-->
+                                  <!--<li><a href="#contact">MYSKYLOCKFLEET</a></li>-->
+                              </ul>
+                              <div ng-show ="tabs" class="pull-right dropdown user-dropdownlist">
+                                  <a href="#" class="dropdown-toggle pull-left" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" stylle="line-height: 2.1;">
+                                      <img class="pull-left" src="../images/masknormal.png" width="35px">
+                                      <span> Mark Andrews  </span>  <i class="fa fa-angle-down fa-2x marg-t3"></i></a>
+                                  <ul class="dropdown-menu">
+                                      <li><a href="#" ng-click="logout()">Log out</a></li>
+                                      <li><a href="#">Settings</a></li>
+                                      <li><a href="#">Contact Form</a></li>
+                                  </ul>
+                              </div>
+                          </div><!--/.nav-collapse -->
+
+                      </div>
+                  </nav>
+              </div>
+          </div>
+
+          <!--</header>-->
+          <div class="row main-container">
+                  <div class="col-sm-12 nopadd">
+                      <div ui-view>
+
+                  </div>
+              </div>
+          </div>
+          <footer class="footer">
+              <div class="container">
+                  <a class="navbar-brand" href=http://www.skylock.cc/ target=_blank>
+                      <img class="logo" src=../images/velo.png>
+                      <span id=name-container>SKYLOCK FLEET</span>
+                  </a>
+              </div>
+          </footer>
+
+      </div>
+</body>
+</html>

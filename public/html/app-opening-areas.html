@@ -1,0 +1,121 @@
+<div style="padding-bottom:650px; font-family:ProximanovaSemiBold; font-size:12px; width:100%; height:450px;" ng-controller="listController" ng-init="initController()">
+    <div style="width:33%; height:523px; padding:40px; float:right;">
+        <div style="border:1px solid #ECECEC; width:100%; height:70px; margin-top: 70px; margin-bottom:90px; display: inline-flex;">
+            <div style=" margin-left: 74px; width: 20px; margin-right: 6px; margin-top: 20px;" class="form-group input-group dateInput">
+                <input ng-model="today" ng-change="dateChange()" style="width: 78px; height: 28px; font-size: 11px; padding: 6px; text-align: center;" type="text" class="form-control date-input" id="date-fld1" />
+                <label class="input-group-btn" for="date-fld1">
+                    <span style="border: 1px solid #CCCCCC; border-radius: 3px; margin-left: 6px; padding: 3px;" class="btn btn-default">
+                        <span style="font-size: 14px; top:2px;" class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </label>
+
+            </div>
+            <div class="bootstrap-timepicker">
+                <input value="{{time}}" style="margin-top: 20px; text-align: center; font-size: 11px; height: 29px; width: 70px; border: 1px solid #CCCCCC; border-radius: 3px;" id="timepicker" type="text" class="input-small">
+                <label class="input-group-btn" for="timepicker">
+                    </span>
+                </label>
+            </div>
+        </div>
+        <div class="table" style="float:right; width:83%; height:179px; border: 1px solid #ECECEC;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="4">Relevant markers</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom-style:hidden;">
+                        <td><md-checkbox ng-model="data.cb2" aria-label="Active Bikes"></md-checkbox></td>
+                        <td><div style=" width:15px; height:20px; background-color:#6EDF9E ;"></div></td>
+                        <td style="padding-top:10px;">ACTIVE BIKES</td>
+                        <td style="padding-top:10px;">1256</td>
+                    </tr>
+                    <tr style="border-bottom-style:hidden; border-top-style: hidden;">
+                        <td><md-checkbox ng-model="data.cb3" aria-label="Parked Bikes"></md-checkbox></td>
+                        <td><div style="width:15px; height:20px; background-color:#67B1E7 ;"></div></td>
+                        <td style="padding-top:10px;">PARKED BIKES</td>
+                        <td style="padding-top:10px;">386</td>
+                    </tr>
+                    <tr style="border-bottom-style:hidden; border-top-style: hidden;">
+                        <td><md-checkbox style="margin-top:5px;" ng-model="data.cb4" aria-label="5 days"></md-checkbox></td>
+                        <td><div style="margin-top:6px; width:15px; height:20px; background-color:#BFBFBF ;"></div></td>
+                        <td style="padding-top:10px;">BIKES IDLE MORE THAN 5 DAYS</td>
+                        <td style="padding-top:10px;">24</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="width :67%;">
+        <p style="text-align: left; padding: 15px;">
+            This heatmap shows the areas that customers most accessed the Skylock app from. Analysing this data over time can provide insights into fleet location and
+            distribution and could help you optimise your fleet usage.
+            Relevant
+        </p>
+    </div>
+    <div id="map" style="width :67%; height: 450px; position:absolute;">
+        <div id="map-overlay" style="width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0); position: relative; float: left; z-index: 3;">
+            <div ng-repeat="box in getOrderedHeatMapBoxes()">
+                <div ng-class="{
+                        base: classNameForBoxNumber(-1),
+                        zero:classNameForBoxNumber(0),
+                        one:classNameForBoxNumber(1),
+                        two:classNameForBoxNumber(2),
+                        three:classNameForBoxNumber(3),
+                        four:classNameForBoxNumber(4),
+                        five:classNameForBoxNumber(5)
+                        }[box.className]"
+                     ng-style="{
+                        'width': '{{boxSize}}' + 'px',
+                        'height': '{{boxSize}}' + 'px'
+                        }"
+                ></div>
+            </div>
+        </div>
+        <div style="width: 155px; margin-top: -300px; height: 260px; background-color: #ffffff; position: relative; float: right; right: 15px; z-index: 4; opacity: 1;">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th style="padding-bottom: 20px;" colspan="4">App opens per hour per quadrant</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="border-bottom-style:hidden; border-top-style: hidden;">
+                    <td style="padding-top: 0; padding-bottom: 0;"><div style=" width:20px; height:20px; background-color:#F8EAE7 ;"></div></td>
+                    <td style="padding-top: 0; padding-bottom: 15px;">< 5</td>
+                </tr>
+                <tr style="border-bottom-style:hidden; border-top-style: hidden;">
+                    <td style="padding-top: 0;"><div style=" width:20px; height:20px; background-color:#FAD9D3;"></div></td>
+                    <td style="padding-top: 0; padding-bottom: 15px;">5 - 20</td>
+                </tr>
+                <tr style="border-bottom-style:hidden; border-top-style: hidden;">
+                    <td style="padding-top: 0;"><div style=" width:20px; height:20px; background-color:#F3AFA5;"></div></td>
+                    <td style="padding-top: 0; padding-bottom: 15px;">20 - 50</td>
+                </tr>
+                <tr style="border-bottom-style:hidden; border-top-style: hidden;">
+                    <td style="padding-top: 0;"><div style=" width:20px; height:20px; background-color:#F3AFA5;"></div></td>
+                    <td style="padding-top: 0; padding-bottom: 15px;">50 - 100</td>
+                </tr>
+                <tr style="border-bottom-style:hidden; border-top-style: hidden;">
+                    <td style="padding-top: 0;"><div style=" width:20px; height:20px; background-color:#D28377;"></div></td>
+                    <td style="padding-top: 0; padding-bottom: 15px;">100 - 300</td>
+                </tr>
+                <tr style="border-bottom-style:hidden; border-top-style: hidden;">
+                    <td style="padding-top: 0;"><div style=" width:20px; height:20px; background-color:#F9595F;"></div></td>
+                    <td style="padding-top: 0; padding-bottom: 15px;">< 300</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="width: 67%; top:450px; height: 60px; background-color: #4A5060; position: relative; display: flex;">
+        <md-checkbox id="blue" style="margin: 17px; color: #ffffff; padding-right: 20px;" ng-init="data.cb5=true" ng-model="data.cb5" aria-label="Show legend">Show legend</md-checkbox>
+        <div style="display: flex;">
+            <div style="margin: 17px 5px 17px 17px; width:20px; height:20px; background-color:#6EDF9E ;"></div> <p style="color: #ffffff; margin: 20px 17px 17px 0px;">Parked bikes</p>
+            <div style="margin: 17px 5px 17px 17px; width:20px; height:20px; background-color:#67B1E7 ;"></div> <p style="color: #ffffff; margin: 20px 17px 17px 0px;">Active bikes</p>
+            <div style="margin: 17px 5px 17px 17px; width:20px; height:20px; background-color:#BFBFBF ;"></div> <p style="color: #ffffff; margin: 20px 17px 17px 0px; padding-right: 105px;">Idle more than 5 days</p>
+        </div>
+        <md-checkbox id="white" style="margin: 17px; color: #ffffff;" ng-model="data.cb6" aria-label="Show geofence">Show geofence</md-checkbox>
+    </div>
+</div>
