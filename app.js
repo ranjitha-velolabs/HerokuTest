@@ -15,7 +15,7 @@ var analyticsPoints = require('./routes/analytics-points');
 var app = express();
 
 //uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
+//app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
