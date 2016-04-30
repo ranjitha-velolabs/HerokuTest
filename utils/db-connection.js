@@ -7,6 +7,7 @@ function DBConnection(connectionString) {
 
 DBConnection.prototype.client = function(callback) {
     var self = this
+    pg.defaults.ssl = true;
     pg.connect(this.connString, function(err, client, done) {
 
         if(err) {
