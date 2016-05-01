@@ -153,15 +153,7 @@ angular.module('skyfleet.controllers')
             }
             if (clicks[index] == 1) {
                 if (temp || temp === 0) {
-                  if (!showAllTripsCheckbox.checked) {
-                      // change color and marker for the selected path and hide all other paths
-                      console.log("Not Checked");
-                      mapFactory.notChecked(pathLayers, layer[1], layer[2], index, temp);
-                  } else if (showAllTripsCheckbox.checked) {
-                      // Show all the paths on the map and change color and marker for the selected path
-                      console.log("Checked");
-                      mapFactory.Checked(pathLayers, layer[1], layer[2], index);
-                  }
+                  console.log("One");
                     pathLayers[temp].setStyle({
                         color: '#929497'
                     });
@@ -173,14 +165,9 @@ angular.module('skyfleet.controllers')
                     divChild[2].style.color = "white";
                 }
                 if (temp != index) {
-                  if (!showAllTripsCheckbox.checked) {
-                      // change color and marker for the selected path and hide all other paths
-                      console.log("Not Checked");
-                      mapFactory.notChecked(pathLayers, layer[1], layer[2], index, temp);
-                  } else if (showAllTripsCheckbox.checked) {
-                      // Show all the paths on the map and change color and marker for the selected path
-                      console.log("Checked");
-                      mapFactory.Checked(pathLayers, layer[1], layer[2], index);
+                  mapFactory.Checked(pathLayers, layer[1], layer[2], index);
+                  if(temp >= 0){
+                    mapFactory.notChecked(pathLayers, layer[1], layer[2], index, temp);
                   }
                     pathLayers[index].setStyle({
                         color: '#6edf9e'

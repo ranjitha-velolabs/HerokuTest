@@ -80,6 +80,9 @@ angular.module('skyfleet').factory('mapFactory', [
                     this._map.addLayer(startmarkerArray[index]);
                     this._map.addLayer(endmarkerArray[index]);
                 }
+                this._map.addLayer(pathLayers[index]);
+                this._map.addLayer(startmarkerArray[index]);
+                this._map.addLayer(endmarkerArray[index]);
             },
             Checked: function(pathLayers, startmarkerArray, endmarkerArray, index) {
                 this._map.addLayer(pathLayers[index]);
