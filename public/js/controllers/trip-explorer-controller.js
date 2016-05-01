@@ -152,6 +152,15 @@ angular.module('skyfleet.controllers')
                 clicks[index] = 1;
             }
             if (clicks[index] == 1) {
+                if (!showAllTripsCheckbox.checked) {
+                    // change color and marker for the selected path and hide all other paths
+                    console.log("Not Checked");
+                    mapFactory.notChecked(pathLayers, layer[1], layer[2], index, temp);
+                } else if (showAllTripsCheckbox.checked) {
+                    // Show all the paths on the map and change color and marker for the selected path
+                    console.log("Checked");
+                    mapFactory.Checked(pathLayers, layer[1], layer[2], index);
+                }
                 if (temp || temp === 0) {
                     pathLayers[temp].setStyle({
                         color: '#929497'
@@ -188,13 +197,6 @@ angular.module('skyfleet.controllers')
                 if (!autoZoom.checked) {
                     // reset the Zoom Value
                     mapFactory.zoomBack();
-                }
-                if (!showAllTripsCheckbox.checked) {
-                    // change color and marker for the selected path and hide all other paths
-                    mapFactory.notChecked(pathLayers, layer[1], layer[2], index, temp);
-                } else if (showAllTripsCheckbox.checked) {
-                    // Show all the paths on the map and change color and marker for the selected path
-                    mapFactory.Checked(pathLayers, layer[1], layer[2], index);
                 }
             }
         }
