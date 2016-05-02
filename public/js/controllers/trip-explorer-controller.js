@@ -22,6 +22,8 @@ angular.module('skyfleet.controllers')
             $scope.showDateTimeFilter = $scope.riderInfoFilter = ' ';
             $scope.tripInfoFilter = $scope.tripInfoFilter === ' ' ? 'in' : ' ';
         }
+        $scope.testButton = function
+        console.log($scope.test);
         // Geojson Data Hard Coded
     $scope.geoJson = {
         "type": "FeatureCollection",
@@ -108,7 +110,7 @@ angular.module('skyfleet.controllers')
         ]
     };
     // map initialization
-    mapFactory.initMap('aravind');
+    mapFactory.initMap();
     // Oval Icon Initial
     var ovalIcon = L.icon({
         iconUrl: '/images/oval.png',
@@ -153,7 +155,6 @@ angular.module('skyfleet.controllers')
             }
             if (clicks[index] == 1) {
                 if (temp || temp === 0) {
-                  console.log("One");
                     pathLayers[temp].setStyle({
                         color: '#929497'
                     });
@@ -165,10 +166,6 @@ angular.module('skyfleet.controllers')
                     divChild[2].style.color = "white";
                 }
                 if (temp != index) {
-                  mapFactory.Checked(pathLayers, layer[1], layer[2], index);
-                  if(temp >= 0){
-                    mapFactory.notChecked(pathLayers, layer[1], layer[2], index, temp);
-                  }
                     pathLayers[index].setStyle({
                         color: '#6edf9e'
                     });
@@ -193,6 +190,13 @@ angular.module('skyfleet.controllers')
                 if (!autoZoom.checked) {
                     // reset the Zoom Value
                     mapFactory.zoomBack();
+                }
+                if (!showAllTripsCheckbox.checked) {
+                    // change color and marker for the selected path and hide all other paths
+                    mapFactory.notChecked(pathLayers, layer[1], layer[2], index, temp);
+                } else if (showAllTripsCheckbox.checked) {
+                    // Show all the paths on the map and change color and marker for the selected path
+                    mapFactory.Checked(pathLayers, layer[1], layer[2], index);
                 }
             }
         }
