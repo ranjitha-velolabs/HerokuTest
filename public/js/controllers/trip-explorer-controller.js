@@ -22,8 +22,6 @@ angular.module('skyfleet.controllers')
             $scope.showDateTimeFilter = $scope.riderInfoFilter = ' ';
             $scope.tripInfoFilter = $scope.tripInfoFilter === ' ' ? 'in' : ' ';
         }
-        $scope.testButton = function
-        console.log($scope.test);
         // Geojson Data Hard Coded
     $scope.geoJson = {
         "type": "FeatureCollection",
