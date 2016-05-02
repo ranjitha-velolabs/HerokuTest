@@ -108,7 +108,7 @@ angular.module('skyfleet.controllers')
         ]
     };
     // map initialization
-    mapFactory.initMap();
+    mapFactory.initMap("aravind");
     // Oval Icon Initial
     var ovalIcon = L.icon({
         iconUrl: '/images/oval.png',
